@@ -1,6 +1,7 @@
 import 'package:srss_app/consts/consts.dart';
 import 'package:srss_app/views/profile_screen/orders_screen/components/order_place_details.dart';
 import 'package:srss_app/views/profile_screen/orders_screen/components/order_status.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart' as intl;
 
 class OrdersDetails extends StatelessWidget {
@@ -187,7 +188,7 @@ class OrdersDetails extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    "Tax".text.size(16).fontFamily(semibold).make(),
+                    "Total ammount ".text.size(16).fontFamily(semibold).make(),
                     "${data['total_amount']}"
                         .numCurrency
                         .text
