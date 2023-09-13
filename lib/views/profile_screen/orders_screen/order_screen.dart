@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:srss_app/consts/consts.dart';
 import 'package:srss_app/services/firestore_services.dart';
+import 'package:srss_app/views/profile_screen/orders_screen/order_details.dart';
 import 'package:srss_app/widzet_common/loading_indicator.dart';
 
 class OrderScreen extends StatelessWidget {
@@ -34,6 +35,12 @@ class OrderScreen extends StatelessWidget {
                   itemCount: data.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
+                      leading: "${index + 1}"
+                          .text
+                          .fontFamily(bold)
+                          .color(darkFontGrey)
+                          .size(16)
+                          .make(),
                       title: data[index]['order_code']
                           .toString()
                           .text
@@ -46,6 +53,16 @@ class OrderScreen extends StatelessWidget {
                           .text
                           .fontFamily(bold)
                           .make(),
+                      trailing: IconButton(
+                          onPressed: () {
+                            Get.to(OrdersDetails(
+                              data: data[index],
+                            ));
+                          },
+                          icon: const Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: darkFontGrey,
+                          )),
                     );
                   });
             }
