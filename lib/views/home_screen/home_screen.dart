@@ -118,11 +118,13 @@ class HomeScreen extends StatelessWidget {
                             .fontFamily(semibold)
                             .make()),
                     20.heightBox,
+
+                    //featured categories
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: List.generate(
-                            3,
+                            2,
                             (index) => Column(
                                   children: [
                                     featuredButton(
@@ -152,66 +154,74 @@ class HomeScreen extends StatelessWidget {
                           10.heightBox,
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: List.generate(
-                                  6,
-                                  (index) => Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Image.asset(
-                                            imgP1,
-                                            width: 150,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          10.heightBox,
-                                          "Laptop i5 8gen"
-                                              .text
-                                              .fontFamily(semibold)
-                                              .color(darkFontGrey)
-                                              .make(),
-                                          10.heightBox,
-                                          "\$450"
-                                              .text
-                                              .color(redColor)
-                                              .fontFamily(bold)
-                                              .size(16)
-                                              .make()
-                                        ],
-                                      )
-                                          .box
-                                          .white
-                                          .margin(const EdgeInsets.symmetric(
-                                              horizontal: 7))
-                                          .roundedSM
-                                          .padding(const EdgeInsets.all(7))
-                                          .make()),
-                            ),
+                            child: StreamBuilder(
+                                stream: FirestoreServices.getFeaturedProducts(),
+                                builder: (context,
+                                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: loadingIndicator(),
+                                    );
+                                  } else if (snapshot.data!.docs.isEmpty) {
+                                    return "No featured product"
+                                        .text
+                                        .white
+                                        .makeCentered();
+                                  } else {
+                                    Get.put(ProductController());
+                                    var featuredData = snapshot.data!.docs;
+                                    return Row(
+                                      children: List.generate(
+                                          featuredData.length,
+                                          (index) => Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Image.network(
+                                                    featuredData[index]
+                                                        ['p_imgs'][0],
+                                                    width: 150,
+                                                    height: 150,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                  10.heightBox,
+                                                  "${featuredData[index]['p_name']}"
+                                                      .text
+                                                      .fontFamily(semibold)
+                                                      .color(darkFontGrey)
+                                                      .make(),
+                                                  10.heightBox,
+                                                  "${featuredData[index]['p_price']}"
+                                                      .numCurrency
+                                                      .text
+                                                      .color(redColor)
+                                                      .fontFamily(bold)
+                                                      .size(16)
+                                                      .make()
+                                                ],
+                                              )
+                                                  .box
+                                                  .white
+                                                  .margin(const EdgeInsets
+                                                      .symmetric(horizontal: 7))
+                                                  .roundedSM
+                                                  .padding(
+                                                      const EdgeInsets.all(7))
+                                                  .make()
+                                                  .onTap(() {
+                                                Get.to(() => ItemDetails(
+                                                      title:
+                                                          "${featuredData[index]['p_name']}",
+                                                      data: featuredData[index],
+                                                    ));
+                                              })),
+                                    );
+                                  }
+                                }),
                           )
                         ],
                       ),
                     ),
-
-                    //trird swiper
-                    // 20.heightBox,
-                    // VxSwiper.builder(
-                    //     aspectRatio: 16 / 9,
-                    //     autoPlay: true,
-                    //     height: 150,
-                    //     enlargeCenterPage: true,
-                    //     itemCount: secondSliderList.length,
-                    //     itemBuilder: (context, index) {
-                    //       return Image.asset(
-                    //         secondSliderList[index],
-                    //         fit: BoxFit.cover,
-                    //       )
-                    //           .box
-                    //           .rounded
-                    //           .clip(Clip.antiAlias)
-                    //           .margin(const EdgeInsets.symmetric(horizontal: 8))
-                    //           .make();
-                    //     }),
-
                     //allproducts
                     20.heightBox,
                     "All Products"

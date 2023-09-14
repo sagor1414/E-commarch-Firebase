@@ -44,7 +44,7 @@ const womendress = "Women dress",
     girlsDress = "Girls dress";
 
 //catagory string
-const womenClothing = "Women Dress",
+const womenClothing = "Women dress",
     menclothing = "Men clothing & Fashion",
     computeracc = "Computer & Accessories",
     automobile = "Automobile",

@@ -6,10 +6,13 @@ const socialIconlist = [icFacebookLogo, icGoogleLogo, icTwitterLogo];
 const sliderList = [imgSlider1, imgSlider2, imgSlider3, imgSlider4];
 const secondSliderList = [imgSs1, imgSs2, imgSs3, imgSs4];
 
-const featuredimages1 = [imgS1, imgS2, imgS3];
-const featuredimages2 = [imgS4, imgS5, imgS6];
-const featuredtitle1 = [womendress, girlsDress, girlsWatch];
-const featuredtitle2 = [boysGlass, mobilephone, tshirt];
+const featuredimages1 = [imgS1, imgFc6];
+const featuredimages2 = [imgFc1, imgFc5];
+const featuredtitle1 = [womendress, cellphone];
+const featuredtitle2 = [
+  menclothing,
+  sport,
+];
 
 //catagory list
 const categorylist = [
