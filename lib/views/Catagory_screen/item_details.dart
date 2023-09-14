@@ -1,5 +1,6 @@
 import 'package:srss_app/consts/consts.dart';
 import 'package:srss_app/controllers/product_controller.dart';
+import 'package:srss_app/views/cart_screen/shiping_screen.dart';
 import 'package:srss_app/views/chat_screen/chat_screen.dart';
 import 'package:srss_app/widzet_common/our_button.dart';
 
@@ -354,7 +355,9 @@ class ItemDetails extends StatelessWidget {
                         BoxDecoration(borderRadius: BorderRadius.circular(20)),
                     child: ourButton(
                         color: Colors.blue,
-                        onPress: () {},
+                        onPress: () {
+                          // Get.to(() => const ShipingDetails());
+                        },
                         textcolor: whiteColor,
                         title: "Buy Now"),
                   ),
