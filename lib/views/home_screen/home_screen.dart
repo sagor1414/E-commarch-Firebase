@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:srss_app/consts/consts.dart';
+import 'package:srss_app/controllers/home_controller.dart';
 import 'package:srss_app/controllers/product_controller.dart';
 import 'package:srss_app/services/firestore_services.dart';
 import 'package:srss_app/views/Catagory_screen/item_details.dart';
 import 'package:srss_app/views/home_screen/components/featuredbutton.dart';
+import 'package:srss_app/views/home_screen/search_screen.dart';
 import 'package:srss_app/widzet_common/home_butons.dart';
 import 'package:srss_app/widzet_common/loading_indicator.dart';
 
@@ -12,6 +14,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.find<HomeController>();
     return Container(
       padding: const EdgeInsets.all(10),
       color: lightGrey,
@@ -21,20 +24,27 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 60,
-              alignment: Alignment.center,
-              color: lightGrey,
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  suffixIcon: Icon(Icons.search),
-                  filled: true,
-                  fillColor: whiteColor,
-                  hintText: search,
-                  hintStyle: TextStyle(color: textfieldGrey),
-                ),
-              ),
-            ),
+                height: 60,
+                alignment: Alignment.center,
+                color: lightGrey,
+                child: TextFormField(
+                  controller: controller.searchController,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    suffixIcon: const Icon(Icons.search).onTap(() {
+                      if (controller
+                          .searchController.text.isNotEmptyAndNotNull) {
+                        Get.to(() => SearchScreen(
+                              title: controller.searchController.text,
+                            ));
+                      }
+                    }),
+                    filled: true,
+                    fillColor: whiteColor,
+                    hintText: search,
+                    hintStyle: const TextStyle(color: textfieldGrey),
+                  ),
+                ).box.outerShadowMd.make()),
             Expanded(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
