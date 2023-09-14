@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:srss_app/consts/consts.dart';
+import 'package:srss_app/services/firestore_services.dart';
+import 'package:srss_app/views/Catagory_screen/item_details.dart';
 import 'package:srss_app/views/home_screen/components/featuredbutton.dart';
 import 'package:srss_app/widzet_common/home_butons.dart';
+import 'package:srss_app/widzet_common/loading_indicator.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -188,70 +192,99 @@ class HomeScreen extends StatelessWidget {
                     ),
 
                     //trird swiper
+                    // 20.heightBox,
+                    // VxSwiper.builder(
+                    //     aspectRatio: 16 / 9,
+                    //     autoPlay: true,
+                    //     height: 150,
+                    //     enlargeCenterPage: true,
+                    //     itemCount: secondSliderList.length,
+                    //     itemBuilder: (context, index) {
+                    //       return Image.asset(
+                    //         secondSliderList[index],
+                    //         fit: BoxFit.cover,
+                    //       )
+                    //           .box
+                    //           .rounded
+                    //           .clip(Clip.antiAlias)
+                    //           .margin(const EdgeInsets.symmetric(horizontal: 8))
+                    //           .make();
+                    //     }),
+
+                    //allproducts
                     20.heightBox,
-                    VxSwiper.builder(
-                        aspectRatio: 16 / 9,
-                        autoPlay: true,
-                        height: 150,
-                        enlargeCenterPage: true,
-                        itemCount: secondSliderList.length,
-                        itemBuilder: (context, index) {
-                          return Image.asset(
-                            secondSliderList[index],
-                            fit: BoxFit.cover,
-                          )
-                              .box
-                              .rounded
-                              .clip(Clip.antiAlias)
-                              .margin(const EdgeInsets.symmetric(horizontal: 8))
-                              .make();
-                        }),
-                    //allproduct
+                    "All Products"
+                        .text
+                        .fontFamily(bold)
+                        .color(darkFontGrey)
+                        .make()
+                        .box
+                        .padding(const EdgeInsets.symmetric(horizontal: 15))
+                        .alignCenterLeft
+                        .make(),
                     20.heightBox,
-                    GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: 8,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 8,
-                                mainAxisSpacing: 8,
-                                mainAxisExtent: 300),
-                        itemBuilder: (context, index) {
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                imgP6,
-                                width: 200,
-                                height: 200,
-                                fit: BoxFit.cover,
-                              ),
-                              const Spacer(),
-                              10.heightBox,
-                              "Laptop i5 8gen"
-                                  .text
-                                  .fontFamily(semibold)
-                                  .color(darkFontGrey)
-                                  .make(),
-                              10.heightBox,
-                              "\$450"
-                                  .text
-                                  .color(redColor)
-                                  .fontFamily(bold)
-                                  .size(16)
-                                  .make()
-                            ],
-                          )
-                              .box
-                              .white
-                              .margin(
-                                  const EdgeInsets.symmetric(horizontal: 12))
-                              .roundedSM
-                              .padding(const EdgeInsets.all(7))
-                              .make();
+                    StreamBuilder(
+                        stream: FirestoreServices.allProducts(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (!snapshot.hasData) {
+                            return loadingIndicator();
+                          } else {
+                            var allproductsdata = snapshot.data!.docs;
+                            return GridView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: allproductsdata.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 8,
+                                        mainAxisSpacing: 8,
+                                        mainAxisExtent: 300),
+                                itemBuilder: (context, index) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Image.network(
+                                        allproductsdata[index]['p_imgs'][0],
+                                        width: 200,
+                                        height: 200,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      const Spacer(),
+                                      10.heightBox,
+                                      "${allproductsdata[index]['p_name']}"
+                                          .text
+                                          .fontFamily(semibold)
+                                          .color(darkFontGrey)
+                                          .make(),
+                                      10.heightBox,
+                                      "${allproductsdata[index]['p_price']}"
+                                          .text
+                                          .color(redColor)
+                                          .fontFamily(bold)
+                                          .size(16)
+                                          .make()
+                                    ],
+                                  )
+                                      .box
+                                      .white
+                                      .margin(const EdgeInsets.symmetric(
+                                          horizontal: 12))
+                                      .roundedSM
+                                      .padding(const EdgeInsets.all(7))
+                                      .make()
+                                      .onTap(() {
+                                    Get.to(() => ItemDetails(
+                                          title:
+                                              "${allproductsdata[index]['p_name']}",
+                                          data: allproductsdata[index],
+                                        ));
+                                  });
+                                });
+                          }
                         })
                   ],
                 ),

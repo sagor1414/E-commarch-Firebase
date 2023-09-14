@@ -93,4 +93,9 @@ class FirestoreServices {
     ]);
     return res;
   }
+
+  //Get products for home screen
+  static allProducts() {
+    return firestore.collection(productsCollection).snapshots();
+  }
 }
