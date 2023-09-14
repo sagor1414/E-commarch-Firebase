@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:srss_app/consts/consts.dart';
+import 'package:srss_app/controllers/product_controller.dart';
 import 'package:srss_app/services/firestore_services.dart';
 import 'package:srss_app/views/Catagory_screen/item_details.dart';
 import 'package:srss_app/views/home_screen/components/featuredbutton.dart';
@@ -230,6 +231,7 @@ class HomeScreen extends StatelessWidget {
                           if (!snapshot.hasData) {
                             return loadingIndicator();
                           } else {
+                            Get.put(ProductController());
                             var allproductsdata = snapshot.data!.docs;
                             return GridView.builder(
                                 physics: const NeverScrollableScrollPhysics(),
