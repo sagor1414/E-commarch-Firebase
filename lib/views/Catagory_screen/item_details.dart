@@ -1,6 +1,5 @@
 import 'package:srss_app/consts/consts.dart';
 import 'package:srss_app/controllers/product_controller.dart';
-import 'package:srss_app/views/cart_screen/shiping_screen.dart';
 import 'package:srss_app/views/chat_screen/chat_screen.dart';
 import 'package:srss_app/widzet_common/our_button.dart';
 
