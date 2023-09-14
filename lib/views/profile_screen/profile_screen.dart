@@ -10,6 +10,7 @@ import 'package:srss_app/views/profile_screen/edit_profile.dart';
 import 'package:srss_app/views/profile_screen/orders_screen/order_screen.dart';
 import 'package:srss_app/views/profile_screen/wishlist_screen/wishlist_screen.dart';
 import 'package:srss_app/widzet_common/bg_widget.dart';
+import 'package:srss_app/widzet_common/loading_indicator.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -84,23 +85,50 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        detailsCardbutton(
-                            count: data['cart_count'],
-                            title: "In your cart",
-                            width: context.screenWidth / 3.6),
-                        detailsCardbutton(
-                            count: data['wishlist_count'],
-                            title: "Your wishlist",
-                            width: context.screenWidth / 3.6),
-                        detailsCardbutton(
-                            count: data['order_count'],
-                            title: "Your order",
-                            width: context.screenWidth / 3.6),
-                      ],
-                    ).box.color(redColor).make(),
+                    FutureBuilder(
+                        future: FirestoreServices.getCounts(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (!snapshot.hasData) {
+                            return Center(child: loadingIndicator());
+                          } else {
+                            var countData = snapshot.data;
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                detailsCardbutton(
+                                    count: countData[0].toString(),
+                                    title: "In your cart",
+                                    width: context.screenWidth / 3.6),
+                                detailsCardbutton(
+                                    count: countData[1].toString(),
+                                    title: "Your wishlist",
+                                    width: context.screenWidth / 3.6),
+                                detailsCardbutton(
+                                    count: countData[2].toString(),
+                                    title: "Your order",
+                                    width: context.screenWidth / 3.6),
+                              ],
+                            ).box.color(redColor).make();
+                          }
+                        }),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //   children: [
+                    //     detailsCardbutton(
+                    //         count: data['cart_count'],
+                    //         title: "In your cart",
+                    //         width: context.screenWidth / 3.6),
+                    //     detailsCardbutton(
+                    //         count: data['wishlist_count'],
+                    //         title: "Your wishlist",
+                    //         width: context.screenWidth / 3.6),
+                    //     detailsCardbutton(
+                    //         count: data['order_count'],
+                    //         title: "Your order",
+                    //         width: context.screenWidth / 3.6),
+                    //   ],
+                    // ).box.color(redColor).make(),
                     //Buttons section
                     ListView.separated(
                             shrinkWrap: true,
