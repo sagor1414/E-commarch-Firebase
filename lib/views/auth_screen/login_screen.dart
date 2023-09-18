@@ -63,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 .then((value) {
                               if (value != null) {
                                 VxToast.show(context, msg: loginsucess);
+                                controller.isloading(false);
                                 Get.offAll(() => const Home());
                               } else {
                                 controller.isloading(false);

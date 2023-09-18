@@ -18,6 +18,7 @@ class EditProfilescreen extends StatelessWidget {
     var controller = Get.find<ProfileController>();
     return bgWidget(
         child: Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(),
       body: Obx(
         () => SingleChildScrollView(
@@ -109,8 +110,18 @@ class EditProfilescreen extends StatelessWidget {
                                   password: controller.newpassController.text);
                               VxToast.show(context, msg: "Updated Complete");
                               Get.offAll(() => const Home());
+                            } else if (controller
+                                    .oldpassController.text.isEmptyOrNull &&
+                                controller
+                                    .newpassController.text.isEmptyOrNull) {
+                              await controller.updateProfileDocument(
+                                  imgUrl: controller.profileImageLink,
+                                  name: controller.nameController.text,
+                                  password: data['password']);
+                              VxToast.show(context, msg: "Updated Complete");
+                              Get.offAll(() => const Home());
                             } else {
-                              VxToast.show(context, msg: "Wrong Old password");
+                              VxToast.show(context, msg: "wrong old password");
                               controller.isloading(false);
                             }
                           },
