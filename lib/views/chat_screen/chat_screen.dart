@@ -31,35 +31,38 @@ class ChatScreen extends StatelessWidget {
                     )
                   : Expanded(
                       child: StreamBuilder(
-                          stream: FirestoreServices.getChatMessages(
-                              controller.chatDocId.toString()),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: loadingIndicator(),
-                              );
-                            } else if (snapshot.data!.docs.isEmpty) {
-                              return Center(
-                                child: "No Conversation"
-                                    .text
-                                    .color(darkFontGrey)
-                                    .make(),
-                              );
-                            } else {
-                              return ListView(
-                                children: snapshot.data!.docs
-                                    .mapIndexed((currentValue, index) {
+                        stream: FirestoreServices.getChatMessages(
+                            controller.chatDocId.toString()),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: loadingIndicator(),
+                            );
+                          } else if (snapshot.data!.docs.isEmpty) {
+                            return Center(
+                              child: "No Conversation"
+                                  .text
+                                  .color(darkFontGrey)
+                                  .make(),
+                            );
+                          } else {
+                            return ListView(
+                              children: snapshot.data!.docs.mapIndexed(
+                                (currentValue, index) {
                                   var data = snapshot.data!.docs[index];
                                   return Align(
                                       alignment: data['uid'] == currentUser!.uid
                                           ? Alignment.centerRight
                                           : Alignment.centerLeft,
                                       child: senderBubble(data));
-                                }).toList(),
-                              );
-                            }
-                          })),
+                                },
+                              ).toList(),
+                            );
+                          }
+                        },
+                      ),
+                    ),
             ),
             Row(
               children: [

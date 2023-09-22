@@ -163,7 +163,8 @@ class ItemDetails extends StatelessWidget {
                                           .size(40, 40)
                                           .roundedFull
                                           .color(Color(int.parse(
-                                              data['p_colors'][index])))
+                                              data['p_colors'][index]
+                                                  .toString())))
                                           .margin(const EdgeInsets.symmetric(
                                               horizontal: 6))
                                           .make()
@@ -318,7 +319,7 @@ class ItemDetails extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     height: 60,
-                    width: MediaQuery.of(context).size.width / 2,
+                    width: MediaQuery.of(context).size.width,
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(20)),
                     child: ourButton(
@@ -344,22 +345,22 @@ class ItemDetails extends StatelessWidget {
                         textcolor: whiteColor,
                         title: "Add to cart"),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                    ),
-                    height: 60,
-                    width: MediaQuery.of(context).size.width / 2,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                    child: ourButton(
-                        color: Colors.blue,
-                        onPress: () {
-                          // Get.to(() => const ShipingDetails());
-                        },
-                        textcolor: whiteColor,
-                        title: "Buy Now"),
-                  ),
+                  // Container(
+                  //   padding: const EdgeInsets.symmetric(
+                  //     horizontal: 8,
+                  //   ),
+                  //   height: 60,
+                  //   width: MediaQuery.of(context).size.width / 2,
+                  //   decoration:
+                  //       BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                  //   child: ourButton(
+                  //       color: Colors.blue,
+                  //       onPress: () {
+                  //         // Get.to(() => const ShipingDetails());
+                  //       },
+                  //       textcolor: whiteColor,
+                  //       title: "Buy Now"),
+                  // ),
                 ],
               ),
               8.heightBox
