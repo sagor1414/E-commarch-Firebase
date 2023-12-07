@@ -1,16 +1,44 @@
-# srss_app
 
-A new Flutter project.
+# sCommarch
 
-## Getting Started
+This is a complete E-commarch app there user can buy products.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Installation
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+For run this project just clone this project and run this command in your project terminal
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+  flutter pub get
+```
+    
+## Support
+
+For support, email sagorsamadder.official@gmail.com
+
+
+## Authors
+
+- [@sagor1414](https://www.github.com/sagor1414)
+
+
+## Features
+
+- Light/dark mode toggle
+- Live previews
+- Fullscreen mode
+- Cross platform
+- responseive ui
+
+
+## State mannagement
+    for state mannagement you use GETX
+## Backend
+    for auth and storeing data we use firebase as a backend service
+## License
+[sagor1414](https://github.com/sagor1414)
+
+
+## 🚀 About Me
+I'm a full stack developer...
+
