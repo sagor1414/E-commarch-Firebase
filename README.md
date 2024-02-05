@@ -1,7 +1,7 @@
 
 # sCommarch
 
-This is a complete E-commarch app there user can buy products.
+This is a complete E-commarch app there user can buy products,user can message all seller.
 
 
 ## Installation
