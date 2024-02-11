@@ -11,6 +11,7 @@ class ItemDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<ProductController>();
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
         controller.resetvalues();

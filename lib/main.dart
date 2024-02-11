@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
           appBarTheme: const AppBarTheme(
               iconTheme: IconThemeData(color: darkFontGrey),
               backgroundColor: Colors.transparent),
-          fontFamily: regular),
+          fontFamily: regular,),
       home: isLogin ? const Home() : const LoginScreen(),
     );
   }
